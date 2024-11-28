@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.2.7
+
+- Copy log to SSL Dir
+
+
 ## 5.2.6
 
 - Fix dns-loopia username error
