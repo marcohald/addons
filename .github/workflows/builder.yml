@@ -78,7 +78,15 @@ jobs:
           else
             echo "No add-on had any monitored files changed (${{ env.MONITORED_FILES }})";
           fi
-
+  test:
+    needs: init
+    runs-on: ubuntu-latest
+    steps:
+      # Debug step to print variable value
+      - name: Debug Variable
+        run: |
+          echo "The value of the variable is: ${{ needs.init.outputs.changed_addons }}"
+          echo "The value of another variable is: ${{ inputs.addons }}"
   build:
     needs: init
     runs-on: ubuntu-latest
