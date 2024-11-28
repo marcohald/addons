@@ -42,6 +42,7 @@ RUN \
         libffi \
         musl \
         openssl \
+        bash \
     && apk add --no-cache --virtual .build-dependencies \
         build-base \
         libffi-dev \
