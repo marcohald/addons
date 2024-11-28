@@ -81,11 +81,11 @@ jobs:
   build:
     needs: init
     runs-on: ubuntu-latest
-    if: needs.init.outputs.changed == 'true' || input.force_build
+    if: needs.init.outputs.changed == 'true' || inputs.force_build
     name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
     strategy:
       matrix:
-        addon: ${{ fromJson(needs.init.outputs.changed_addons  github.event.inputs.addons) }}
+        addon: ${{ fromJson(needs.init.outputs.changed_addons ) }}${{ fromJson(inputs.addons ) }} 
         arch: ["aarch64", "amd64", "armhf", "armv7", "i386"]
 
     steps:
