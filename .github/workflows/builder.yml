@@ -87,6 +87,25 @@ jobs:
         run: |
           echo "The value of the variable is: ${{ needs.init.outputs.changed_addons }}"
           echo "The value of another variable is: ${{ inputs.addons }}"
+      # Check if the variable is not empty before calling fromJson
+      - name: Parse JSON (if not empty)
+        id: parse_json
+        if: ${{ needs.init.outputs.changed_addons != '' }}  # Only run if the variable is not empty
+        run: |
+          echo "The variable is not empty, parsing with fromJson."
+          echo "::set-output name=addon::${{ fromJson(needs.init.outputs.changed_addons) }}"
+
+      # Handle the case when the variable is empty
+      - name: Skip JSON parsing (if empty)
+        if: ${{ needs.init.outputs.changed_addons == ''}}  # Only run if the variable is empty
+        run: |
+          echo "The variable is empty, skipping fromJson parsing."
+
+      # Use the parsed variable (if available)
+      - name: Use Parsed Variable
+        run: |
+          echo "Parsed JSON: ${{ steps.parse_json.outputs.addon }}"
+
   build:
     needs: init
     runs-on: ubuntu-latest
