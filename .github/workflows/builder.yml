@@ -43,6 +43,7 @@ jobs:
       - name: Get changed files
         id: changed_files
         uses: masesgroup/retrieve-changed-files@v3.0.0
+        if: github.event_name == 'push'
 
       - name: Get add-ons
         id: addons
