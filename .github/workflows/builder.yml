@@ -21,7 +21,7 @@ on:
       arch:
         description: 'Archs to build'
         required: true
-        default: '["aarch64"]'
+        default: '["amd64"]'
         type: string
       force_build:
         description: 'Force Build'
