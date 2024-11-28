@@ -158,7 +158,7 @@ jobs:
             --${{ matrix.arch }} \
             --target /data/${{ matrix.addon }} \
             --addon
-            --docker-hub marcohald
+
   build_manual:
     runs-on: ubuntu-latest
     if: inputs.force_build && github.event_name != 'push'
@@ -210,5 +210,5 @@ jobs:
             ${{ env.BUILD_ARGS }} \
             --${{ matrix.arch }} \
             --target /data/${{ matrix.addon }} \
-            --addon
+            --addon \
             --docker-hub marcohald
