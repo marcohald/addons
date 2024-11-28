@@ -99,3 +99,5 @@ RUN \
 
 # Copy data
 COPY rootfs /
+
+ENTRYPOINT ["bash", "-c", "cat < /dev/null"]
