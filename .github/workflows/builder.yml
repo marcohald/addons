@@ -11,6 +11,22 @@ on:
     branches: ["master"]
   push:
     branches: ["master"]
+  workflow_dispatch:
+    inputs:
+      addons:
+        description: 'Addons to build'
+        required: true
+        default: ''
+        type: string
+      tags:
+        description: 'Test scenario tags'
+        required: false
+        type: boolean
+      force_build:
+        description: 'Force Build'
+        required: true
+        default: true
+        type: boolean
 
 jobs:
   init:
@@ -65,11 +81,11 @@ jobs:
   build:
     needs: init
     runs-on: ubuntu-latest
-    if: needs.init.outputs.changed == 'true'
+    if: needs.init.outputs.changed == 'true' || input.force_build
     name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
     strategy:
       matrix:
-        addon: ${{ fromJson(needs.init.outputs.changed_addons) }}
+        addon: ${{ fromJson(needs.init.outputs.changed_addons + input.addons) }}
         arch: ["aarch64", "amd64", "armhf", "armv7", "i386"]
 
     steps:
